@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f174c9d25dbd44deab4cfe5cbd27635f
+guid: e241a964433fa48f2b3db505fbe76128
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1545446107546801431
-    second: IMG_1257_0
+      213: 4381185005097561391
+    second: IMG_1268_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IMG_1257_0
+      name: IMG_1268_0
       rect:
         serializedVersion: 2
-        x: 199
-        y: 299
-        width: 402
-        height: 402
+        x: 0
+        y: 0
+        width: 800
+        height: 800
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 71556d3fb07827510800000000000000
-      internalID: 1545446107546801431
+      spriteID: f2dab14bc881dcc30800000000000000
+      internalID: 4381185005097561391
       vertices: []
       indices: 
       edges: []
@@ -123,7 +123,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 9eefdb7f356ce4714a4afd951b3e6087
+    spriteID: 91d2e94be87a74654b88220c54048a5b
     internalID: 0
     vertices: []
     indices: 
@@ -131,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      IMG_1257_0: 1545446107546801431
+      IMG_1268_0: 4381185005097561391
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

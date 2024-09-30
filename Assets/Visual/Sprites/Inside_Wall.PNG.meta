@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a154d9b20b9484932aff0f8de261c09a
+guid: 74556cb58c9a04179bdaf5fb7adb2430
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 412645702110330040
-    second: IMG_1262_0
+      213: -2197449840917808561
+    second: IMG_1276_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,22 +100,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IMG_1262_0
+      name: IMG_1276_0
       rect:
         serializedVersion: 2
-        x: 249
-        y: 299
-        width: 377
-        height: 227
+        x: 0
+        y: 0
+        width: 960
+        height: 960
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8bcb06c64130ab500800000000000000
-      internalID: 412645702110330040
+      spriteID: f4afa5423071181e0800000000000000
+      internalID: -2197449840917808561
       vertices: []
       indices: 
       edges: []
@@ -123,14 +123,15 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c78bf3740873342349626ef68cc13566
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IMG_1276_0: -2197449840917808561
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
