@@ -12,7 +12,8 @@ public class ChefCatMovement : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+   
+        animator = GetComponent<Animator>();  
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
