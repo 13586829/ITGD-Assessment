@@ -56,10 +56,11 @@ public class ChefCatMovement : MonoBehaviour
     }
 
     void Move()
-    {
-        Vector3 moveDirection = new Vector3(direction.x, direction.y, 0);
-        transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
-    }
+	{	
+    Vector3 moveDirection = new Vector3(direction.x, direction.y, 0);
+    transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
+	}
+
 
     void UpdateAnimation()
     {
@@ -68,16 +69,17 @@ public class ChefCatMovement : MonoBehaviour
     }
 
     void FlipSprite()
-    {
-        if (direction.x > 0) 
-        {
-            spriteRenderer.flipX = false; 
-        }
-        else if (direction.x < 0) 
-        {
-            spriteRenderer.flipX = true; 
-        }
-    }
+	{
+    	if (direction.x > 0) 
+    	{
+        	spriteRenderer.flipX = false; 
+    	}	
+    	else if (direction.x < 0) 
+    	{
+        	spriteRenderer.flipX = true; 
+    	}
+	}
+
 
     void EnterDeadState()
     {

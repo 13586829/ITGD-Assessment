@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e4521f8f6637f480892a95df1a5a671c
+guid: 0f0e958accbd94217bce4b7b1a668bd5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4427038726361286613
-    second: IMG_1277_0
+      213: 3499322507899085526
+    second: IMG_1261_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IMG_1277_0
+      name: IMG_1261_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 541
-        height: 541
+        x: 249
+        y: 299
+        width: 377
+        height: 227
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5d789a32440007d30800000000000000
-      internalID: 4427038726361286613
+      spriteID: 6d2aaddd747109030800000000000000
+      internalID: 3499322507899085526
       vertices: []
       indices: 
       edges: []
@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IMG_1261_0: 3499322507899085526
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
