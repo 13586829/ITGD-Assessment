@@ -1,61 +1,81 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ChefCatMovement : MonoBehaviour
 {
-    public float speed = 5f; // Speed of the character movement
-    private Animator animator; // Reference to the Animator
-    private Vector2 direction; // Store movement direction
-    private SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer for flipping
+    public float speed = 5f;
+    private Animator animator;
+    private Vector2 direction = Vector2.right;
+    private SpriteRenderer spriteRenderer;
 
-    public AudioSource audioSource; // The AudioSource component to play sounds
-    public AudioClip startAudio; // The audio clip to play at the start
-    public AudioClip moveAudio;  // The audio clip to play when moving
+    public AudioSource audioSource;
+    public AudioSource moveEffectSource;
+    public AudioClip startAudio;
+    public AudioClip moveAudio;
+    public AudioClip scaredAudio;
+    public AudioClip ghostDeadAudio;
+    public AudioClip moveSoundEffect;
+    public AudioClip pelletEatAudio;
+    public AudioClip deadSoundAudio;
 
-    private bool hasStartedMoving = false; // To track if the player has started moving
+    private float audioTimer = 0f;
+    private float cycleDuration = 15f;
+    private bool hasStartedMoving = false;
+    private const float tileSize = 30f;
+    public Tilemap pelletTilemap;
+    public TileBase emptyTile;
+    public TileBase pelletTile;
+    private bool isScared = false;
+    private bool isGhostDead = false;
 
     void Start()
     {
-        // Get the Animator and SpriteRenderer components attached to the cat sprite
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>()
+        moveEffectSource.clip = moveSoundEffect;
+        moveEffectSource.loop = true;
 
-        // Get the AudioSource component attached to the cat
-        audioSource = GetComponent<AudioSource>();
-
-        // Play the start audio when the game begins
-        PlayStartAudio();
+        StartCoroutine(PlayStartAudioThenMove()); 
+    }
+    
+    IEnumerator PlayStartAudioThenMove()
+    {
+        PlayStartAudio(); 
+        yield return new WaitForSeconds(5f); 
+        PlayMoveAudio();
+        hasStartedMoving = true;
+    }
+    
+        
+    void FlipSprite()
+    {
+        Vector3 localScale = transform.localScale;
+        
+        if (direction.x != 0)
+        {
+            localScale.x = Mathf.Abs(localScale.x) * Mathf.Sign(direction.x);
+            transform.localScale = localScale;
+        }
     }
 
     void Update()
     {
-        // Handle player input for movement
-        GetInput();
-        // Move the cat based on the input
-        Move();
-        // Update the animation parameters
-        UpdateAnimation();
-        // Flip the sprite based on movement direction
-        FlipSprite();
-
-        // Check for movement input
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) ||
-            Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        if (hasStartedMoving)
         {
-            // If the player hasn't started moving yet, play the movement audio
-            if (!hasStartedMoving)
-            {
-                PlayMoveAudio();
-                hasStartedMoving = true; // Mark that the player has started moving
-            }
+            GetInput();
+            Move();
+            UpdateAnimation();
+            FlipSprite();
+            CheckForPellet();
+            CycleThroughAudio(); 
         }
     }
-
+    
     void GetInput()
     {
-        // Reset direction
         direction = Vector2.zero;
 
-        // Check for input in each direction
         if (Input.GetKey(KeyCode.UpArrow))
         {
             direction = Vector2.up;
@@ -74,45 +94,99 @@ public class ChefCatMovement : MonoBehaviour
         }
     }
 
-    void Move()
-    {
-        // Move the cat sprite based on direction and speed
-        Vector3 moveDirection = new Vector3(direction.x, direction.y, 0);
-        transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
-    }
-
     void UpdateAnimation()
     {
-        // Update the moveX and moveY parameters in the Animator
         animator.SetFloat("moveX", direction.x);
         animator.SetFloat("moveY", direction.y);
     }
 
-    void FlipSprite()
-    {
-        // Flip the sprite only when moving left or right
-        if (direction.x > 0) // Moving Right
-        {
-            spriteRenderer.flipX = false; // Face right (no flip)
-        }
-        else if (direction.x < 0) // Moving Left
-        {
-            spriteRenderer.flipX = true; // Face left (flip horizontally)
-        }
-    }
-
-    // Method to play the start audio
     private void PlayStartAudio()
     {
-        audioSource.clip = startAudio; // Set the start audio clip
-        audioSource.Play(); // Play the audio
+        audioSource.clip = startAudio;
+        audioSource.Play();
     }
 
-    // Method to play the movement audio
     private void PlayMoveAudio()
     {
-        audioSource.Stop(); // Stop the current audio (start audio)
-        audioSource.clip = moveAudio; // Set the movement audio clip
-        audioSource.Play(); // Play the movement audio
+        audioSource.clip = moveAudio;
+        audioSource.loop = true;
+        audioSource.Play();
+    }
+
+    private void PlayScaredAudio()
+    {
+        audioSource.clip = scaredAudio;
+        audioSource.loop = false;
+        audioSource.Play();
+    }
+
+    private void PlayGhostDeadAudio()
+    {
+        audioSource.clip = ghostDeadAudio;
+        audioSource.loop = false;
+        audioSource.Play();
+    }
+
+    private void PlayPelletEatAudio()
+    {
+        audioSource.PlayOneShot(pelletEatAudio);
+    }
+
+    private void PlayDeadSoundEffect()
+    {
+        if (deadSoundAudio != null)
+        {
+            audioSource.PlayOneShot(deadSoundAudio);
+        }
+    }
+
+    void CycleThroughAudio()
+    {
+        audioTimer += Time.deltaTime;
+
+        if (!isScared && !isGhostDead && audioTimer >= cycleDuration)
+        {
+            PlayScaredAudio();
+            isScared = true;
+            isGhostDead = false;
+            audioTimer = 0f;
+        }
+        else if (isScared && !isGhostDead && audioTimer >= cycleDuration)
+        {
+            PlayGhostDeadAudio();
+            isScared = false;
+            isGhostDead = true;
+            audioTimer = 0f;
+        }
+        else if (isGhostDead && audioTimer >= cycleDuration)
+        {
+            PlayMoveAudio();
+            isScared = false;
+            isGhostDead = false;
+            audioTimer = 0f;
+        }
+    }
+
+    void CheckForPellet()
+    {
+        Vector3Int gridPosition = pelletTilemap.WorldToCell(transform.position);
+        TileBase currentTile = pelletTilemap.GetTile(gridPosition);
+
+        if (currentTile == pelletTile)
+        {
+            pelletTilemap.SetTile(gridPosition, emptyTile);
+            PlayPelletEatAudio();
+        }
+    }
+
+    void TriggerDeadAnimation()
+    {
+        if (!audioSource.isPlaying)
+        {
+            PlayDeadSoundEffect();
+            animator.SetTrigger("isDead");
+            moveEffectSource.Stop();
+            audioSource.Stop();
+        }
     }
 }
