@@ -1,107 +1,110 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Collections;
 
 public class BeeMovement : MonoBehaviour
 {
     public float speed = 5f;
     private Animator animator;
     private Vector2 direction;
-    private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
 
-    // Audio components
-    public AudioSource audioSource;
-    public AudioSource moveEffectSource;
-    public AudioClip startAudio;
-    public AudioClip moveAudio;
-    public AudioClip scaredAudio;
-    public AudioClip ghostDeadAudio;
+    // Audio clips for specific actions
+    public AudioClip startLevelAudio;
     public AudioClip moveSoundEffect;
     public AudioClip pelletEatAudio;
-    public AudioClip deadSoundAudio;
-
-    // Audio cycle variables
-    private float audioTimer = 0f;
-    private float cycleDuration = 15f;
-    private bool hasStartedMoving = true; // Start moving immediately
-    private bool isScared = false;
-    private bool isGhostDead = false;
+    public AudioClip wallHitAudio;
 
     // Tilemap and pellet interaction
     public Tilemap pelletTilemap;
     public TileBase emptyTile;
     public TileBase pelletTile;
 
+    private bool hasStartedMoving = false;
+    private bool isMoving = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
 
-        if (moveEffectSource != null)
-        {
-            moveEffectSource.clip = moveSoundEffect;
-            moveEffectSource.loop = true;
-            moveEffectSource.Play(); // Play the movement effect sound right away
-        }
-
-        PlayStartAudio(); // Play start audio immediately
-        PlayMoveAudio();  // Start looping move audio
+        // Play the start level sound at the beginning
+        PlayStartLevelAudio();
     }
 
     void Update()
     {
+        if (!hasStartedMoving)
+        {
+            // Check if any arrow key is pressed to stop start music and begin movement
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) ||
+                Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                StopStartLevelAudio();
+                EnableMovement();
+            }
+        }
+
         if (hasStartedMoving)
         {
             GetInput();
             Move();
             CheckForPellet();
-            CycleThroughAudio();
         }
     }
 
-    void GetInput()
+    private void GetInput()
     {
         direction = Vector2.zero;
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
             direction = Vector2.up;
-            SetDirection(0, 0); // Up
+            RotateBee(0);
+            SetDirectionAnimation("Up");
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
             direction = Vector2.down;
-            SetDirection(1, 180); // Down
+            RotateBee(180);
+            SetDirectionAnimation("Down");
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
             direction = Vector2.left;
-            SetDirection(2, 90); // Left
+            RotateBee(90);
+            SetDirectionAnimation("Left");
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             direction = Vector2.right;
-            SetDirection(3, 270); // Right
+            RotateBee(270);
+            SetDirectionAnimation("Right");
         }
     }
 
-    void SetDirection(int directionValue, float rotationZ)
-    {
-        animator.SetInteger("Direction", directionValue);
-        transform.rotation = Quaternion.Euler(0, 0, rotationZ);
-    }
-
-    void Move()
+    private void Move()
     {
         if (direction != Vector2.zero)
         {
             Vector3 moveDirection = new Vector3(direction.x, direction.y, 0);
-            transform.Translate(moveDirection * (speed * Time.deltaTime), Space.World);
+            transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
+
+            // Start movement sound if the bee is moving and it's not already playing
+            if (!isMoving)
+            {
+                PlayMoveAudio();
+                isMoving = true;
+            }
+        }
+        else
+        {
+            // Stop movement sound when the bee stops moving
+            audioSource.Stop();
+            isMoving = false;
         }
     }
 
-    void CheckForPellet()
+    private void CheckForPellet()
     {
         Vector3Int gridPosition = pelletTilemap.WorldToCell(transform.position);
         TileBase currentTile = pelletTilemap.GetTile(gridPosition);
@@ -113,20 +116,29 @@ public class BeeMovement : MonoBehaviour
         }
     }
 
-    private void PlayStartAudio()
+    private void PlayStartLevelAudio()
     {
-        if (startAudio != null)
+        if (audioSource != null && startLevelAudio != null)
         {
-            audioSource.clip = startAudio;
+            audioSource.clip = startLevelAudio;
+            audioSource.loop = false;
             audioSource.Play();
+        }
+    }
+
+    private void StopStartLevelAudio()
+    {
+        if (audioSource.clip == startLevelAudio)
+        {
+            audioSource.Stop();
         }
     }
 
     private void PlayMoveAudio()
     {
-        if (moveAudio != null)
+        if (audioSource != null && moveSoundEffect != null)
         {
-            audioSource.clip = moveAudio;
+            audioSource.clip = moveSoundEffect;
             audioSource.loop = true;
             audioSource.Play();
         }
@@ -134,75 +146,37 @@ public class BeeMovement : MonoBehaviour
 
     private void PlayPelletEatAudio()
     {
-        if (pelletEatAudio != null)
+        if (audioSource != null && pelletEatAudio != null)
         {
-            audioSource.PlayOneShot(pelletEatAudio);
+            audioSource.PlayOneShot(pelletEatAudio); // Play one-shot to layer with background audio
         }
     }
 
-    private void PlayScaredAudio()
+    private void PlayWallHitAudio()
     {
-        if (scaredAudio != null)
+        if (audioSource != null && wallHitAudio != null)
         {
-            audioSource.clip = scaredAudio;
-            audioSource.loop = false;
-            audioSource.Play();
+            audioSource.PlayOneShot(wallHitAudio); // Play one-shot for wall hit sound
         }
     }
 
-    private void PlayGhostDeadAudio()
+    private void RotateBee(float angle)
     {
-        if (ghostDeadAudio != null)
-        {
-            audioSource.clip = ghostDeadAudio;
-            audioSource.loop = false;
-            audioSource.Play();
-        }
+        // Rotate the bee to face the direction of movement
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    private void PlayDeadSoundEffect()
+    private void SetDirectionAnimation(string direction)
     {
-        if (deadSoundAudio != null)
-        {
-            audioSource.PlayOneShot(deadSoundAudio);
-        }
+        // Use animator to set the direction
+        animator.SetTrigger(direction);
     }
 
-    void CycleThroughAudio()
+    private void EnableMovement()
     {
-        audioTimer += Time.deltaTime;
+        hasStartedMoving = true;
 
-        if (!isScared && !isGhostDead && audioTimer >= cycleDuration)
-        {
-            PlayScaredAudio();
-            isScared = true;
-            isGhostDead = false;
-            audioTimer = 0f;
-        }
-        else if (isScared && !isGhostDead && audioTimer >= cycleDuration)
-        {
-            PlayGhostDeadAudio();
-            isScared = false;
-            isGhostDead = true;
-            audioTimer = 0f;
-        }
-        else if (isGhostDead && audioTimer >= cycleDuration)
-        {
-            PlayMoveAudio();
-            isScared = false;
-            isGhostDead = false;
-            audioTimer = 0f;
-        }
-    }
-
-    void TriggerDeadAnimation()
-    {
-        PlayDeadSoundEffect();
-        animator.SetTrigger("isDead");
-        if (moveEffectSource != null)
-        {
-            moveEffectSource.Stop();
-        }
-        audioSource.Stop();
+        // Notify squid state controller to start playing background audio
+        SquidStateController.EnableSquidAudio();
     }
 }
