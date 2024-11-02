@@ -32,7 +32,7 @@ public class ChefCatMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        audioSource = GetComponent<AudioSource>()
+        audioSource = GetComponent<AudioSource>();
         moveEffectSource.clip = moveSoundEffect;
         moveEffectSource.loop = true;
 
