@@ -6,7 +6,104 @@
   <component name="ChangeListManager">
     <list default="true" id="7120fcdc-b043-462a-a0cc-26867837ce4f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.13586829_Assess3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.13586829_Assess3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChefCatMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChefCatMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/IMG_1272.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/IMG_1272.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 3.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 4.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 5.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 6.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Dead Cat/Untitled 2 7.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Normal Cat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Normal Cat/cat 1.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Normal Cat/cat 1.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Normal Cat/cat 2.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Normal Cat/cat 2.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Normal Cat/cat 3.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Chef Cat/Normal Cat/cat 3.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/IMG_1260.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/IMG_1260.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/IMG_1269.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/IMG_1269.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/IMG_1270.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/IMG_1270.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Dead Mouse.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Dead Mouse/IMG_1267.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Dead Mouse/IMG_1267.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Normal Mouse.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Normal Mouse/IMG_1261.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Normal Mouse/IMG_1261.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Normal Mouse/IMG_1262.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Normal Mouse/IMG_1262.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Normal Mouse/IMG_1263.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Normal Mouse/IMG_1263.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Recovering Mouse.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Recovering Mouse/Untitled 4 2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Recovering Mouse/Untitled 4 2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Scared Mouse.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Scared Mouse/IMG_1264.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Scared Mouse/IMG_1264.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Scared Mouse/IMG_1265.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Scared Mouse/IMG_1265.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Scared Mouse/IMG_1266.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Mouse/Scared Mouse/IMG_1266.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/PowerPellet.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/PowerPellet/IMG_1268.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/PowerPellet/IMG_1268.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/PowerPellet/Untitled 10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/PowerPellet/Untitled 10.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/IMG_1272.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/IMG_1272.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Inside_Corner.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Inside_Corner.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Inside_Wall.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Inside_Wall.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Outside_Corner.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Outside_Corner.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Outside_Wall.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Outside_Wall.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1268_0.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1268_0.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1272_0.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1272_0.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1273_0.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1273_0.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1274_0.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1274_0.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1275_0.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1275_0.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1276_0.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1276_0.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1277_0.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1277_0.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1278_0.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/IMG_1278_0.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/New Tile Palette.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Palette/New Tile Palette.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Power_Pellet.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Power_Pellet.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Standard_Pellet.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/Standard_Pellet.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/T-junction_Wall.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Visual/Sprites/T-junction_Wall.PNG.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +126,9 @@
   }
 }</component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -37,18 +137,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;30%&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="/Applications/Unity/Hub/Editor/2023.2.10f1/Unity.app/Contents/MacOS/Unity" />
