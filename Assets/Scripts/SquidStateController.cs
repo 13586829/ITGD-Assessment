@@ -1,38 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SquidStateController : MonoBehaviour
 {
     private Animator animator;
-    private int currentDirection = 0; // Default direction (up)
     private AudioSource audioSource;
 
     // Audio clips for different states
     public AudioClip normalAudio;
-    public AudioClip scaredOrRecoveringAudio; // Shared audio for Scared and Recovering states
+    public AudioClip scaredOrRecoveringAudio;
     public AudioClip deadAudio;
 
-    // Static variables for controlling audio and dead state
+    // Static variable to track if any squid is in the dead state
     private static bool anySquidInDeadState = false;
-    private static bool squidAudioEnabled = false; // Flag to control when squid audio can start
 
     void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+
+        // Automatically play the normal state sound when the game scene starts
+        PlayNormalAudio();
     }
 
     void Update()
     {
-        // Only proceed with audio and state transitions if squid audio is enabled
-        if (!squidAudioEnabled)
-            return;
-
-        // State transitions controlled by number keys for testing purposes
+        // Test state transitions using number keys
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            ReturnToNormalState();
+            EnterNormalState();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -46,93 +41,54 @@ public class SquidStateController : MonoBehaviour
         {
             EnterDeadState();
         }
-
-        // Directional control using arrow keys
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            SetDirection(0); // Up
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            SetDirection(1); // Down
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            SetDirection(2); // Left
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            SetDirection(3); // Right
-        }
     }
 
-    // Sets the direction for the squid's animation based on an integer value
-    public void SetDirection(int direction)
+    // Normal state
+    public void EnterNormalState()
     {
-        currentDirection = direction;
-        animator.SetInteger("Direction", direction);
-    }
+        animator.SetTrigger("Normal");
 
-    // Static method to enable squid audio and start the normal state audio automatically
-    public static void EnableSquidAudio()
-    {
-        squidAudioEnabled = true;
-
-        // Play normal state audio when squid audio is enabled for the first time
-        foreach (var squid in Object.FindObjectsByType<SquidStateController>(FindObjectsSortMode.None))
+        // Only play normal audio if no squid is in dead state
+        if (!anySquidInDeadState)
         {
-            squid.PlayNormalAudio();
+            PlayNormalAudio();
         }
     }
 
-    // Transition the squid to the scared state
+    // Scared state
     public void EnterScaredState()
     {
         animator.SetTrigger("Scared");
         PlayScaredOrRecoveringAudio();
     }
 
-    // Transition the squid to the recovering state
+    // Recovering state
     public void EnterRecoveringState()
     {
         animator.SetTrigger("Recovering");
 
-        // Only play scared/recovering audio if it's not already playing
+        // Continue playing scared/recovering audio if already playing
         if (!audioSource.isPlaying || audioSource.clip != scaredOrRecoveringAudio)
         {
             PlayScaredOrRecoveringAudio();
         }
     }
 
-    // Transition the squid to the dead state
+    // Dead state
     public void EnterDeadState()
     {
         animator.SetTrigger("Dead");
 
-        // Stop any currently playing audio to ensure only dead audio plays
+        // Stop current audio to play dead audio exclusively
         if (audioSource.isPlaying)
         {
             audioSource.Stop();
         }
 
-        // Play dead audio only if no other squid is in dead state
         if (!anySquidInDeadState)
         {
             anySquidInDeadState = true;
             PlayDeadAudio();
-        }
-    }
-
-    // Return the squid to the normal state with the last known direction
-    public void ReturnToNormalState()
-    {
-        animator.SetTrigger("BackToNormal");
-        animator.SetInteger("Direction", currentDirection); // Return to the last known direction
-
-        // Only play normal audio if no squid is in dead state
-        if (!anySquidInDeadState)
-        {
-            PlayNormalAudio();
         }
     }
 
@@ -167,7 +123,15 @@ public class SquidStateController : MonoBehaviour
         }
     }
 
-    // Static method to reset dead state when needed (e.g., when all squids respawn)
+    // Static method to enable normal state audio for all squids in the scene
+    public static void EnableSquidAudio()
+    {
+        foreach (var squid in FindObjectsOfType<SquidStateController>())
+        {
+            squid.PlayNormalAudio();
+        }
+    }
+
     public static void ResetDeadState()
     {
         anySquidInDeadState = false;

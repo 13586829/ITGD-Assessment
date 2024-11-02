@@ -200,7 +200,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 1, g: 0.972549, b: 0.8352941, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -225,7 +225,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 60
+  orthographic size: 16
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -250,7 +250,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.78, z: -10}
+  m_LocalPosition: {x: 0, y: 0.9, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalAudio: {fileID: 8300000, guid: f62654a6fd17d4cbfa39176dd30757a0, type: 3}
-  scaredAudio: {fileID: 8300000, guid: 7e2b6dbe9b2004c0ca520b0d09fa5f2e, type: 3}
+  scaredOrRecoveringAudio: {fileID: 8300000, guid: 7e2b6dbe9b2004c0ca520b0d09fa5f2e, type: 3}
   deadAudio: {fileID: 8300000, guid: 4c8cd7b51d31f4a9b8ae69de31dc9bf3, type: 3}
 --- !u!82 &1115298932
 AudioSource:
@@ -479,6 +479,74 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1195759529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1195759532}
+  - component: {fileID: 1195759531}
+  - component: {fileID: 1195759530}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1195759530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195759529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1195759531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195759529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &1195759532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195759529}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1237795138
 GameObject:
   m_ObjectHideFlags: 0
@@ -7497,7 +7565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalAudio: {fileID: 8300000, guid: f62654a6fd17d4cbfa39176dd30757a0, type: 3}
-  scaredAudio: {fileID: 8300000, guid: 7e2b6dbe9b2004c0ca520b0d09fa5f2e, type: 3}
+  scaredOrRecoveringAudio: {fileID: 8300000, guid: 7e2b6dbe9b2004c0ca520b0d09fa5f2e, type: 3}
   deadAudio: {fileID: 8300000, guid: 4c8cd7b51d31f4a9b8ae69de31dc9bf3, type: 3}
 --- !u!82 &1551868401
 AudioSource:
@@ -7610,6 +7678,7 @@ GameObject:
   - component: {fileID: 1990348582}
   - component: {fileID: 1990348584}
   - component: {fileID: 1990348583}
+  - component: {fileID: 1990348585}
   m_Layer: 0
   m_Name: Bee
   m_TagString: Untagged
@@ -7720,11 +7789,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5395b110c2c40497d959e4881d0bc5ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  startLevelAudio: {fileID: 8300000, guid: 4e4179217a37347959cace738743ec8e, type: 3}
+  speed: 1
+  moveEffectSource: {fileID: 1990348584}
   moveSoundEffect: {fileID: 8300000, guid: e114cdf6a103746a19149af7e2d37d00, type: 3}
   pelletEatAudio: {fileID: 8300000, guid: ed800003843a4446e9b7312fd659a489, type: 3}
-  wallHitAudio: {fileID: 0}
+  wallHitAudio: {fileID: 8300000, guid: cec7775a05f24472687ae1c2d7f4fd37, type: 3}
   pelletTilemap: {fileID: 1237795141}
   emptyTile: {fileID: 11400000, guid: bc0c93f77e53845d9809c5830022d03f, type: 2}
   pelletTile: {fileID: 11400000, guid: f4ed0a35731214039b614446a553bfc3, type: 2}
@@ -7922,6 +7991,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1990348585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990348578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5395b110c2c40497d959e4881d0bc5ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  moveEffectSource: {fileID: 0}
+  moveSoundEffect: {fileID: 0}
+  pelletEatAudio: {fileID: 0}
+  wallHitAudio: {fileID: 0}
+  pelletTilemap: {fileID: 0}
+  emptyTile: {fileID: 0}
+  pelletTile: {fileID: 0}
 --- !u!1 &1990836094
 GameObject:
   m_ObjectHideFlags: 0
@@ -8046,7 +8135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalAudio: {fileID: 8300000, guid: f62654a6fd17d4cbfa39176dd30757a0, type: 3}
-  scaredAudio: {fileID: 8300000, guid: 7e2b6dbe9b2004c0ca520b0d09fa5f2e, type: 3}
+  scaredOrRecoveringAudio: {fileID: 8300000, guid: 7e2b6dbe9b2004c0ca520b0d09fa5f2e, type: 3}
   deadAudio: {fileID: 8300000, guid: 4c8cd7b51d31f4a9b8ae69de31dc9bf3, type: 3}
 --- !u!82 &1990836099
 AudioSource:
@@ -8269,7 +8358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalAudio: {fileID: 8300000, guid: f62654a6fd17d4cbfa39176dd30757a0, type: 3}
-  scaredAudio: {fileID: 8300000, guid: 7e2b6dbe9b2004c0ca520b0d09fa5f2e, type: 3}
+  scaredOrRecoveringAudio: {fileID: 8300000, guid: 7e2b6dbe9b2004c0ca520b0d09fa5f2e, type: 3}
   deadAudio: {fileID: 8300000, guid: 4c8cd7b51d31f4a9b8ae69de31dc9bf3, type: 3}
 --- !u!82 &7573669600560234267
 AudioSource:
@@ -8379,3 +8468,4 @@ SceneRoots:
   - {fileID: 428600441}
   - {fileID: 1115298930}
   - {fileID: 1990836097}
+  - {fileID: 1195759532}

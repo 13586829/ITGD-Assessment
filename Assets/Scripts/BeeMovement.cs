@@ -4,179 +4,144 @@ using UnityEngine.Tilemaps;
 public class BeeMovement : MonoBehaviour
 {
     public float speed = 5f;
+    public AudioSource moveEffectSource; // Source for movement sounds
+    public AudioClip moveSoundEffect; // Sound for moving
+    public AudioClip pelletEatAudio; // Sound for eating pellets
+    public AudioClip wallHitAudio; // Sound for hitting a wall
+
+    public Tilemap pelletTilemap; // The tilemap containing pellets
+    public TileBase emptyTile; // Tile to replace pellet after it's eaten
+    public TileBase pelletTile; // Tile representing pellets
+
     private Animator animator;
-    private Vector2 direction;
-    private AudioSource audioSource;
-
-    // Audio clips for specific actions
-    public AudioClip startLevelAudio;
-    public AudioClip moveSoundEffect;
-    public AudioClip pelletEatAudio;
-    public AudioClip wallHitAudio;
-
-    // Tilemap and pellet interaction
-    public Tilemap pelletTilemap;
-    public TileBase emptyTile;
-    public TileBase pelletTile;
-
-    private bool hasStartedMoving = false;
-    private bool isMoving = false;
+    private Vector2 direction = Vector2.right;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
 
-        // Play the start level sound at the beginning
-        PlayStartLevelAudio();
+        // Check if pelletTilemap is assigned and log a message
+        if (pelletTilemap == null)
+        {
+            Debug.LogError("Pellet Tilemap is not assigned in the Inspector.");
+        }
+
+        // Setup move effect source if assigned
+        if (moveEffectSource != null && moveSoundEffect != null)
+        {
+            moveEffectSource.clip = moveSoundEffect;
+            moveEffectSource.loop = true; // Loop the moving sound effect while moving
+        }
     }
 
     void Update()
     {
-        if (!hasStartedMoving)
-        {
-            // Check if any arrow key is pressed to stop start music and begin movement
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) ||
-                Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                StopStartLevelAudio();
-                EnableMovement();
-            }
-        }
-
-        if (hasStartedMoving)
-        {
-            GetInput();
-            Move();
-            CheckForPellet();
-        }
+        GetInput();
+        Move();
+        UpdateAnimation();
+        CheckForPellet(); // Call CheckForPellet every frame to detect pellets
     }
 
-    private void GetInput()
+    // Handles movement input
+    void GetInput()
     {
         direction = Vector2.zero;
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
             direction = Vector2.up;
-            RotateBee(0);
-            SetDirectionAnimation("Up");
+            SetDirection(0, 0); // Up
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
             direction = Vector2.down;
-            RotateBee(180);
-            SetDirectionAnimation("Down");
+            SetDirection(1, 180); // Down
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
             direction = Vector2.left;
-            RotateBee(90);
-            SetDirectionAnimation("Left");
+            SetDirection(2, 90); // Left
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             direction = Vector2.right;
-            RotateBee(270);
-            SetDirectionAnimation("Right");
+            SetDirection(3, 270); // Right
+        }
+
+        // Play or stop the move effect sound depending on input
+        if (direction != Vector2.zero && moveEffectSource != null && !moveEffectSource.isPlaying)
+        {
+            moveEffectSource.Play();
+        }
+        else if (direction == Vector2.zero && moveEffectSource != null && moveEffectSource.isPlaying)
+        {
+            moveEffectSource.Stop();
         }
     }
 
-    private void Move()
+    // Handles the movement of the bee
+    void Move()
     {
-        if (direction != Vector2.zero)
-        {
-            Vector3 moveDirection = new Vector3(direction.x, direction.y, 0);
-            transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
-
-            // Start movement sound if the bee is moving and it's not already playing
-            if (!isMoving)
-            {
-                PlayMoveAudio();
-                isMoving = true;
-            }
-        }
-        else
-        {
-            // Stop movement sound when the bee stops moving
-            audioSource.Stop();
-            isMoving = false;
-        }
+        Vector3 moveDirection = new Vector3(direction.x, direction.y, 0);
+        transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
     }
 
-    private void CheckForPellet()
+    // Updates the animation based on movement direction
+    void UpdateAnimation()
     {
+        animator.SetFloat("moveX", direction.x);
+        animator.SetFloat("moveY", direction.y);
+    }
+
+    // Sets the direction and rotation of the bee
+    void SetDirection(int directionValue, float rotationZ)
+    {
+        animator.SetInteger("Direction", directionValue);
+        transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+    }
+
+    // Checks if the bee is on a pellet tile, replaces it, and plays the eat sound
+    void CheckForPellet()
+    {
+        if (pelletTilemap == null)
+        {
+            Debug.LogError("Pellet Tilemap is not assigned.");
+            return;
+        }
+
         Vector3Int gridPosition = pelletTilemap.WorldToCell(transform.position);
         TileBase currentTile = pelletTilemap.GetTile(gridPosition);
 
+        // Check if the current tile is a pellet tile
         if (currentTile == pelletTile)
         {
+            // Replace the pellet tile with an empty tile
             pelletTilemap.SetTile(gridPosition, emptyTile);
+
+            // Play the pellet-eating sound
             PlayPelletEatAudio();
         }
     }
 
-    private void PlayStartLevelAudio()
-    {
-        if (audioSource != null && startLevelAudio != null)
-        {
-            audioSource.clip = startLevelAudio;
-            audioSource.loop = false;
-            audioSource.Play();
-        }
-    }
-
-    private void StopStartLevelAudio()
-    {
-        if (audioSource.clip == startLevelAudio)
-        {
-            audioSource.Stop();
-        }
-    }
-
-    private void PlayMoveAudio()
-    {
-        if (audioSource != null && moveSoundEffect != null)
-        {
-            audioSource.clip = moveSoundEffect;
-            audioSource.loop = true;
-            audioSource.Play();
-        }
-    }
-
+    // Method to play the pellet-eating sound
     private void PlayPelletEatAudio()
     {
-        if (audioSource != null && pelletEatAudio != null)
+        if (moveEffectSource != null && pelletEatAudio != null)
         {
-            audioSource.PlayOneShot(pelletEatAudio); // Play one-shot to layer with background audio
+            moveEffectSource.PlayOneShot(pelletEatAudio);
+        }
+        else
+        {
+            Debug.LogWarning("Pellet eat audio or moveEffectSource is not assigned.");
         }
     }
 
+    // Plays the wall hit sound, if needed
     private void PlayWallHitAudio()
     {
-        if (audioSource != null && wallHitAudio != null)
+        if (moveEffectSource != null && wallHitAudio != null)
         {
-            audioSource.PlayOneShot(wallHitAudio); // Play one-shot for wall hit sound
+            moveEffectSource.PlayOneShot(wallHitAudio);
         }
-    }
-
-    private void RotateBee(float angle)
-    {
-        // Rotate the bee to face the direction of movement
-        transform.rotation = Quaternion.Euler(0, 0, angle);
-    }
-
-    private void SetDirectionAnimation(string direction)
-    {
-        // Use animator to set the direction
-        animator.SetTrigger(direction);
-    }
-
-    private void EnableMovement()
-    {
-        hasStartedMoving = true;
-
-        // Notify squid state controller to start playing background audio
-        SquidStateController.EnableSquidAudio();
     }
 }
