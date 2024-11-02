@@ -10,7 +10,7 @@ public class SquidStateController : MonoBehaviour
 
     // Audio clips for different states
     public AudioClip normalAudio;
-    public AudioClip scaredAudio;
+    public AudioClip scaredOrRecoveringAudio; // Shared audio for Scared and Recovering states
     public AudioClip deadAudio;
 
     // Static variables for controlling audio and dead state
@@ -79,7 +79,7 @@ public class SquidStateController : MonoBehaviour
         squidAudioEnabled = true;
 
         // Play normal state audio when squid audio is enabled for the first time
-        foreach (var squid in FindObjectsOfType<SquidStateController>())
+        foreach (var squid in Object.FindObjectsByType<SquidStateController>(FindObjectsSortMode.None))
         {
             squid.PlayNormalAudio();
         }
@@ -89,20 +89,33 @@ public class SquidStateController : MonoBehaviour
     public void EnterScaredState()
     {
         animator.SetTrigger("Scared");
-        PlayScaredAudio();
+        PlayScaredOrRecoveringAudio();
     }
 
     // Transition the squid to the recovering state
     public void EnterRecoveringState()
     {
         animator.SetTrigger("Recovering");
-        PlayNormalAudio();
+
+        // Only play scared/recovering audio if it's not already playing
+        if (!audioSource.isPlaying || audioSource.clip != scaredOrRecoveringAudio)
+        {
+            PlayScaredOrRecoveringAudio();
+        }
     }
 
     // Transition the squid to the dead state
     public void EnterDeadState()
     {
         animator.SetTrigger("Dead");
+
+        // Stop any currently playing audio to ensure only dead audio plays
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
+        // Play dead audio only if no other squid is in dead state
         if (!anySquidInDeadState)
         {
             anySquidInDeadState = true;
@@ -134,11 +147,11 @@ public class SquidStateController : MonoBehaviour
         }
     }
 
-    private void PlayScaredAudio()
+    private void PlayScaredOrRecoveringAudio()
     {
-        if (audioSource != null && scaredAudio != null)
+        if (audioSource != null && scaredOrRecoveringAudio != null)
         {
-            audioSource.clip = scaredAudio;
+            audioSource.clip = scaredOrRecoveringAudio;
             audioSource.loop = true;
             audioSource.Play();
         }
