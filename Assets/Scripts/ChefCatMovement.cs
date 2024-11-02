@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Collections;
 
 public class ChefCatMovement : MonoBehaviour
 {
@@ -33,8 +32,7 @@ public class ChefCatMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        audioSource = GetComponent<AudioSource>();
-
+        audioSource = GetComponent<AudioSource>()
         moveEffectSource.clip = moveSoundEffect;
         moveEffectSource.loop = true;
 
@@ -47,60 +45,9 @@ public class ChefCatMovement : MonoBehaviour
         yield return new WaitForSeconds(5f); 
         PlayMoveAudio();
         hasStartedMoving = true;
-        StartCoroutine(MoveInPattern());
     }
     
-    IEnumerator MoveInPattern()
-    {
-        yield return MoveInDirection(Vector2.right, 11);
-        yield return MoveInDirection(Vector2.down, 4);
-        yield return MoveInDirection(Vector2.right, 3);
-        yield return MoveInDirection(Vector2.up, 4);
-        yield return MoveInDirection(Vector2.right, 11);
-        yield return MoveInDirection(Vector2.down, 7);
-        yield return MoveInDirection(Vector2.left, 5);
-        yield return MoveInDirection(Vector2.down, 13);
-        yield return MoveInDirection(Vector2.right, 5);
-        yield return MoveInDirection(Vector2.down, 7);
-        yield return MoveInDirection(Vector2.left, 11);
-        yield return MoveInDirection(Vector2.up, 4);
-        yield return MoveInDirection(Vector2.left, 3);
-        yield return MoveInDirection(Vector2.down, 4);
-        yield return MoveInDirection(Vector2.left, 11);
-        yield return MoveInDirection(Vector2.up, 7);
-        yield return MoveInDirection(Vector2.right, 5);
-        yield return MoveInDirection(Vector2.up, 13);
-        yield return MoveInDirection(Vector2.left, 5);
-        yield return MoveInDirection(Vector2.up, 7);
         
-        TriggerDeadAnimation();
-    }
-    
-    IEnumerator MoveInDirection(Vector2 moveDirection, int numTiles)
-    {
-        direction = moveDirection;
-        FlipSprite();
-        
-        for (int i = 0; i < numTiles; i++)
-        {
-            Vector3 startPosition = transform.position;
-            Vector3 targetPosition = startPosition + new Vector3(direction.x * tileSize, direction.y * tileSize, 0f); 
-            float elapsedTime = 0f;
-            float moveDuration = tileSize / speed; 
-
-            while (elapsedTime < moveDuration)
-            {
-                transform.position = Vector3.Lerp(startPosition, targetPosition, (elapsedTime / moveDuration));
-                elapsedTime += Time.deltaTime;
-                CheckForPellet(); 
-                yield return null;
-            }
-            
-            transform.position = targetPosition;
-            yield return null;
-        }
-    }
-    
     void FlipSprite()
     {
         Vector3 localScale = transform.localScale;
@@ -116,8 +63,34 @@ public class ChefCatMovement : MonoBehaviour
     {
         if (hasStartedMoving)
         {
+            GetInput();
+            Move();
             UpdateAnimation();
+            FlipSprite();
+            CheckForPellet();
             CycleThroughAudio(); 
+        }
+    }
+    
+    void GetInput()
+    {
+        direction = Vector2.zero;
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            direction = Vector2.up;
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            direction = Vector2.down;
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            direction = Vector2.left;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            direction = Vector2.right;
         }
     }
 
@@ -166,7 +139,7 @@ public class ChefCatMovement : MonoBehaviour
             audioSource.PlayOneShot(deadSoundAudio);
         }
     }
-    
+
     void CycleThroughAudio()
     {
         audioTimer += Time.deltaTime;
