@@ -13,57 +13,51 @@ public class BeeVisuals : MonoBehaviour
     public TileBase pelletTile;
 
     private Animator animator;
+    private AudioSource pelletAudioSource;
+    private ParticleSystem dustEffect;
+    private bool hasStartedMoving = false;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        
+        dustEffect = GetComponentInChildren<ParticleSystem>();
+
         if (moveEffectSource != null && moveSoundEffect != null)
         {
             moveEffectSource.clip = moveSoundEffect;
             moveEffectSource.loop = true;
+            moveEffectSource.playOnAwake = false;
         }
+
+        pelletAudioSource = gameObject.AddComponent<AudioSource>();
+        pelletAudioSource.playOnAwake = false;
     }
 
     public void StartMoving()
     {
-        if (animator != null)
-        {
-            animator.SetBool("isMoving", true);
-        }
-
-        if (moveEffectSource != null && !moveEffectSource.isPlaying)
+        if (!hasStartedMoving && moveEffectSource != null && !moveEffectSource.isPlaying)
         {
             moveEffectSource.Play();
+            hasStartedMoving = true;
+            
+            if (dustEffect != null && !dustEffect.isPlaying)
+            {
+                dustEffect.Play();
+            }
         }
     }
 
     public void StopMoving()
     {
-        if (animator != null)
-        {
-            animator.SetBool("isMoving", false);
-        }
-
         if (moveEffectSource != null && moveEffectSource.isPlaying)
         {
             moveEffectSource.Stop();
-        }
-    }
-
-    public void PlayPelletEatAudio()
-    {
-        if (moveEffectSource != null && pelletEatAudio != null)
-        {
-            moveEffectSource.PlayOneShot(pelletEatAudio);
-        }
-    }
-
-    public void PlayWallHitAudio()
-    {
-        if (moveEffectSource != null && wallHitAudio != null)
-        {
-            moveEffectSource.PlayOneShot(wallHitAudio);
+            hasStartedMoving = false;
+            
+            if (dustEffect != null && dustEffect.isPlaying)
+            {
+                dustEffect.Stop();
+            }
         }
     }
 
@@ -78,6 +72,22 @@ public class BeeVisuals : MonoBehaviour
         {
             pelletTilemap.SetTile(gridPosition, emptyTile);
             PlayPelletEatAudio();
+        }
+    }
+
+    private void PlayPelletEatAudio()
+    {
+        if (pelletAudioSource != null && pelletEatAudio != null)
+        {
+            pelletAudioSource.PlayOneShot(pelletEatAudio);
+        }
+    }
+
+    public void PlayWallHitAudio()
+    {
+        if (moveEffectSource != null && wallHitAudio != null)
+        {
+            moveEffectSource.PlayOneShot(wallHitAudio);
         }
     }
 }

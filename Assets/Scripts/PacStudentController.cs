@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class PacStudentController : MonoBehaviour
 {
-    public float gridMoveSpeed = 5f; 
-    private Vector2 targetPosition; 
+    public float gridMoveSpeed = 5f;
+    private Vector2 targetPosition;
     private Vector2 currentGridPosition;
-    private bool isMoving = false; 
-    private string lastInput = ""; 
-    private string currentInput = ""; 
+    private bool isMoving = false;
+    private string lastInput = "";
+    private string currentInput = "";
 
     private BeeVisuals beeVisuals;
 
@@ -21,7 +21,6 @@ public class PacStudentController : MonoBehaviour
     void Update()
     {
         GetInput();
-        
         if (!isMoving)
         {
             HandleMovement();
@@ -54,10 +53,12 @@ public class PacStudentController : MonoBehaviour
         {
             currentInput = lastInput;
             StartLerping(nextPosition);
+            RotateBee(direction);
         }
         else if (IsWalkable(currentGridPosition + GetDirectionVector(currentInput)))
         {
             StartLerping(currentGridPosition + GetDirectionVector(currentInput));
+            RotateBee(GetDirectionVector(currentInput));
         }
     }
 
@@ -73,6 +74,18 @@ public class PacStudentController : MonoBehaviour
         return Vector2.zero;
     }
 
+    void RotateBee(Vector2 direction)
+    {
+        if (direction == Vector2.up)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        else if (direction == Vector2.down)
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+        else if (direction == Vector2.left)
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+        else if (direction == Vector2.right)
+            transform.rotation = Quaternion.Euler(0, 0, -90);
+    }
+
     void FixedUpdate()
     {
         if (isMoving)
@@ -83,7 +96,8 @@ public class PacStudentController : MonoBehaviour
             {
                 isMoving = false;
                 currentGridPosition = targetPosition;
-                beeVisuals.StopMoving(); 
+                beeVisuals.StopMoving();
+                beeVisuals.CheckForPellet();
             }
         }
     }
