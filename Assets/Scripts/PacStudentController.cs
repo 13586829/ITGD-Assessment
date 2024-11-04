@@ -1,14 +1,18 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PacStudentController : MonoBehaviour
 {
     public float gridMoveSpeed = 5f;
+    public Tilemap pelletTilemap;
+    public Tilemap powerPelletTilemap;
+    public int score = 0;
     private Vector2 targetPosition;
     private Vector2 currentGridPosition;
     private bool isMoving = false;
     private string lastInput = "";
     private string currentInput = "";
-
+    [SerializeField] private HUDManager hudManager;
     private BeeVisuals beeVisuals;
 
     void Start()
@@ -16,6 +20,8 @@ public class PacStudentController : MonoBehaviour
         currentGridPosition = transform.position;
         targetPosition = currentGridPosition;
         beeVisuals = GetComponent<BeeVisuals>();
+        hudManager = Object.FindFirstObjectByType<HUDManager>();
+
     }
 
     void Update()
@@ -49,17 +55,9 @@ public class PacStudentController : MonoBehaviour
 
         Vector2 nextPosition = currentGridPosition + direction;
 
-        if (IsWalkable(nextPosition))
-        {
-            currentInput = lastInput;
-            StartLerping(nextPosition);
-            RotateBee(direction);
-        }
-        else if (IsWalkable(currentGridPosition + GetDirectionVector(currentInput)))
-        {
-            StartLerping(currentGridPosition + GetDirectionVector(currentInput));
-            RotateBee(GetDirectionVector(currentInput));
-        }
+        currentInput = lastInput;
+        StartLerping(nextPosition);
+        RotateBee(direction);
     }
 
     Vector2 GetDirectionVector(string input)
@@ -97,7 +95,7 @@ public class PacStudentController : MonoBehaviour
                 isMoving = false;
                 currentGridPosition = targetPosition;
                 beeVisuals.StopMoving();
-                beeVisuals.CheckForPellet();
+                CheckForPelletOrPowerPellet();
             }
         }
     }
@@ -109,8 +107,22 @@ public class PacStudentController : MonoBehaviour
         beeVisuals.StartMoving();
     }
 
-    bool IsWalkable(Vector2 position)
+    void CheckForPelletOrPowerPellet()
     {
-        return true;
+        Vector3Int gridPosition = pelletTilemap.WorldToCell(transform.position);
+
+        if (pelletTilemap.HasTile(gridPosition))
+        {
+            pelletTilemap.SetTile(gridPosition, null);
+            hudManager.UpdateScore(10);
+            beeVisuals.PlayPelletEatAudio();
+        }
+        else if (powerPelletTilemap.HasTile(gridPosition))
+        {
+            powerPelletTilemap.SetTile(gridPosition, null);
+            hudManager.UpdateScore(50);
+            beeVisuals.PlayPelletEatAudio();
+        }
     }
+
 }

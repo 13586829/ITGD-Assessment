@@ -75,7 +75,7 @@ public class BeeVisuals : MonoBehaviour
         }
     }
 
-    private void PlayPelletEatAudio()
+    public void PlayPelletEatAudio()
     {
         if (pelletAudioSource != null && pelletEatAudio != null)
         {

@@ -30,26 +30,28 @@ public class CherryController : MonoBehaviour
     {
         float screenHeight = Camera.main.orthographicSize * 2;
         float screenWidth = screenHeight * Camera.main.aspect;
-        
+        float spawnOffset = 0.5f; // Adjusted offset for a closer spawn
+
         int side = Random.Range(0, 4);
         Vector2 spawnPosition = Vector2.zero;
         switch (side)
         {
             case 0: // Top
-                spawnPosition = new Vector2(Random.Range(-screenWidth / 2, screenWidth / 2), screenHeight / 2 + 1);
+                spawnPosition = new Vector2(Random.Range(-screenWidth / 2, screenWidth / 2), screenHeight / 2 + spawnOffset);
                 break;
             case 1: // Bottom
-                spawnPosition = new Vector2(Random.Range(-screenWidth / 2, screenWidth / 2), -screenHeight / 2 - 1);
+                spawnPosition = new Vector2(Random.Range(-screenWidth / 2, screenWidth / 2), -screenHeight / 2 - spawnOffset);
                 break;
             case 2: // Left
-                spawnPosition = new Vector2(-screenWidth / 2 - 1, Random.Range(-screenHeight / 2, screenHeight / 2));
+                spawnPosition = new Vector2(-screenWidth / 2 - spawnOffset, Random.Range(-screenHeight / 2, screenHeight / 2));
                 break;
             case 3: // Right
-                spawnPosition = new Vector2(screenWidth / 2 + 1, Random.Range(-screenHeight / 2, screenHeight / 2));
+                spawnPosition = new Vector2(screenWidth / 2 + spawnOffset, Random.Range(-screenHeight / 2, screenHeight / 2));
                 break;
         }
         return spawnPosition;
     }
+
 
     IEnumerator MoveCherry(GameObject cherry)
     {
