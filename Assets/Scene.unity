@@ -211,7 +211,7 @@ SpriteRenderer:
   m_Size: {x: 4.02, y: 4.02}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1228503611
@@ -241,9 +241,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5395b110c2c40497d959e4881d0bc5ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  mouse: {fileID: 1675299831}
-  triggerDistance: 2
+  moveEffectSource: {fileID: 0}
+  moveSoundEffect: {fileID: 0}
+  pelletEatAudio: {fileID: 0}
+  wallHitAudio: {fileID: 0}
+  pelletTilemap: {fileID: 0}
+  emptyTile: {fileID: 0}
+  pelletTile: {fileID: 0}
 --- !u!1 &1675299828
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +339,7 @@ SpriteRenderer:
   m_Size: {x: 3.77, y: 2.27}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1675299831
